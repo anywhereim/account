@@ -5,15 +5,15 @@ import Link from 'next/link'
 import Flex from '../shared/Flex'
 import Text from '../shared/Text'
 import { css } from '@emotion/react'
-import Skeleton from '../shared/Skeleton'
 import Image from 'next/image'
+import BannerSkeleton from './BannerSkeleton'
 
 //이벤트 베너들을 그려냄
 function EventBanners() {
   const { data } = useEventBanners()
-  console.log(data)
+
   return (
-    <div>
+    <div style={{ padding: 24 }}>
       <Swiper spaceBetween={8}>
         {data?.map((banner) => {
           return (
@@ -45,5 +45,5 @@ const bannerStyles = css`
 `
 
 export default withSusepnse(EventBanners, {
-  fallback: <Skeleton width="100%" height={100} style={{ borderRadius: 8 }} />,
+  fallback: <BannerSkeleton />,
 })
