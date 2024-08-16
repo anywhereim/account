@@ -10,7 +10,7 @@ export default function Layout({ children }: LayoutProps) {
     <div>
       <SEO
         title="My Account"
-        description="편하게 나의 자산 관리를 해보세요!"
+        description="간편하게 나의 자산 관리를 해보세요!"
         image=""
       />
       <Head>
