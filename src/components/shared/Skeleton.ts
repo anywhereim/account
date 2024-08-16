@@ -1,19 +1,13 @@
 import styled from '@emotion/styled'
 import { keyframes } from '@emotion/react'
-import { colors } from '@styles/colorPalette'
 
-const opacity = keyframes`
-    0% {
-        opacity: 1;
-    }
-
-    50% {
-        opacity: 0.4;
-    }
-
-    100% {
-        opacity: 1;
-    }
+const shimmer = keyframes`
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -60% 0;
+  }
 `
 
 const Skeleton = styled.div<{
@@ -22,8 +16,10 @@ const Skeleton = styled.div<{
 }>(({ width, height }) => ({
   width,
   height,
-  backgroundColor: colors.gray100,
-  animation: `${opacity} 2s ease-in-out 0.5s infinite`,
+  background: `linear-gradient(90deg, #cccccc 25%, #ffffff 50%, #cccccc 75%)`,
+  backgroundSize: '200% 100%',
+  animation: `${shimmer} 1.5s ease-in-out infinite`,
+  borderRadius: '8px', // 모서리 둥글게 처리
 }))
 
 export default Skeleton
