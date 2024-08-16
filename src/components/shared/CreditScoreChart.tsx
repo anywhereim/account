@@ -1,5 +1,9 @@
 import { colors } from '@/styles/colorPalette'
-import { useEffect, useRef, useState } from 'react'
+import { memo, useEffect, useRef, useState } from 'react'
+import Text from '@components/shared/Text'
+import addDelimiter from '@/utils/addDelimiter'
+import styled from '@emotion/styled'
+import { css } from '@emotion/react'
 
 const creditScoreMax = 1_000
 
@@ -10,10 +14,10 @@ interface CreditScoreChartProps {
   score: number
 }
 
-export default function CreditScoreChart({
+function CreditScoreChart({
   score,
-  width,
-  height,
+  width = 100,
+  height = 100,
 }: CreditScoreChartProps) {
   const pathRef = useRef<SVGPathElement>(null)
   const [totalLength, setTotalLength] = useState(0)
@@ -28,7 +32,7 @@ export default function CreditScoreChart({
   const dashoffset = totalLength - (score / creditScoreMax) * totalLength
 
   return (
-    <div>
+    <Container width={width} height={height}>
       <svg
         width={width}
         height={height}
@@ -54,6 +58,25 @@ export default function CreditScoreChart({
           strokeDashoffset={dashoffset}
         ></path>
       </svg>
-    </div>
+      <Text bold={true} typography="t6" css={textStyles}>
+        {addDelimiter(score)}
+      </Text>
+    </Container>
   )
 }
+
+const Container = styled.div<{ width: number; height: number }>(
+  ({ width, height }) => ({
+    position: 'relative',
+    width,
+    height,
+  }),
+)
+
+const textStyles = css`
+  position: absolute;
+  bottom: 25%;
+  transform: translateX(-50%);
+  left: 50%;
+`
+export default memo(CreditScoreChart)
